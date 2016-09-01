@@ -33,13 +33,17 @@ largestPrimeNdigits' n = maximum $ allPrimes $ largestNdigit n
 
 -- Better solution, find the first prime in a descending sequence from 2^n-1 .. 1
 -- Now this takes 7 seconds for largestPrimeNdigits 7
-walkDown :: Int -> [Int]
-walkDown n = [n,n-1 .. 1]
-
-largestPrime :: Int -> Int
-largestPrime n 
+largestPrime'' :: Int -> Int
+largestPrime'' n 
   | isPrime n = n
-  | otherwise = largestPrime (n - 1)
+  | otherwise = largestPrime'' (n - 1)
+
+largestPrimeNdigits'' :: Int -> Int
+largestPrimeNdigits'' n = largestPrime'' (largestNdigit n)
+
+-- even shorter: use head, filter
+largestPrime :: Int -> Int
+largestPrime n  = head $ filter isPrime [n,n-1 .. 1]
 
 largestPrimeNdigits :: Int -> Int
 largestPrimeNdigits n = largestPrime (largestNdigit n)
