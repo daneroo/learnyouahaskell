@@ -26,10 +26,13 @@ isPrime n  = null $ divisors n
 allPrimes :: Int -> [Int]
 allPrimes n = filter (isPrime) [1..n]
 
--- generate all primes, find the max
+-- generate *all primes*, find the max: very slow!
+-- 5 seconds for 4 digits
 largestPrimeNdigits' :: Int -> Int
 largestPrimeNdigits' n = maximum $ allPrimes $ largestNdigit n
 
+-- Better solution, find the first prime in a descending sequence from 2^n-1 .. 1
+-- Now this takes 7 seconds for largestPrimeNdigits 7
 walkDown :: Int -> [Int]
 walkDown n = [n,n-1 .. 1]
 
