@@ -76,3 +76,18 @@ filter' _ [] = []
 filter' f (x:xs)
   | f x       = x : (filter' f xs)
   | otherwise = filter' f xs  
+
+--  collatz
+chain :: (Integral a) => a -> [a]  
+chain 1 = [1]  
+chain n  
+    | even n =  n:chain (n `div` 2)  
+    | odd n  =  n:chain (n*3 + 1)  
+
+numLongChains :: Int  
+numLongChains = length (filter isLong (map chain [1..100]))  
+    where isLong xs = length xs > 15  
+
+-- map with foldr
+map' :: (a -> b) -> [a] -> [b]  
+map' f xs = foldr (\x acc -> f x : acc) [] xs
